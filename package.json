@@ -1,7 +1,7 @@
 {
   "name": "angular-electron",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "SEE LICENSE",
   "main": "./dist/main/main.js",
   "scripts": {
     "ng": "ng",
@@ -19,7 +19,9 @@
     "precommit": "lint-staged",
     "test": "ng test",
     "lint": "tslint '{src,test,mocks}/**/*.{ts,tsx}' --project ./tsconfig.json",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder"
   },
   "lint-staged": {
     "{src,test,mocks}/**/*.{js,ts,tsx,json,css,scss,md}": [
@@ -31,6 +33,39 @@
       "git add"
     ]
   },
+  "build": {
+    "productName": "ProductName",
+    "appId": "org.your.productname",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "linux": {
+      "target": "deb"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:MarkRabey/angular-electron.git"
+  },
+  "author": {
+    "name": "Mark Rabey",
+    "email": "mark@markrabey.com"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkRabey/angular-electron/issues"
+  },
+  "homepage": "https://github.com/MarkRabey/angular-electron",
   "dependencies": {
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",
@@ -55,6 +90,7 @@
     "codelyzer": "^4.0.1",
     "concurrently": "^3.5.1",
     "electron": "^1.8.4",
+    "electron-builder": "^20.9.2",
     "husky": "^0.14.3",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
