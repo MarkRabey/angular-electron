@@ -10,13 +10,14 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
+    show: false,
   });
 
   // and load the index.html of the app.
   if (isDevMode) {
     mainWindow.loadURL('http://localhost:4200');
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, 'index.html'),
@@ -24,6 +25,10 @@ const createWindow = async () => {
       slashes: true,
     }));
   }
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {

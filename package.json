@@ -2,13 +2,13 @@
   "name": "angular-electron",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "./dist/main.js",
+  "main": "./dist/main/main.js",
   "scripts": {
     "ng": "ng",
-    "prestart": "npm run clean",
     "start:main": "npm run build:main && electron .",
     "start:renderer": "ng serve",
-    "start": "concurrently \"npm run start:main\" \"npm run start:renderer\"",
+    "prestart": "npm run clean",
+    "start": "concurrently \"npm run start:renderer\" \"wait-on http-get://localhost:4200 && npm run start:main\"",
     "electron": "electron .",
     "clean": "rm -rf dist",
     "build:main": "tsc -p ./src/main/tsconfig.main.json",
@@ -53,6 +53,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "wait-on": "^2.1.0"
   }
 }
